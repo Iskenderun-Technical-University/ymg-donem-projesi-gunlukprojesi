@@ -30,12 +30,12 @@ namespace gunluk_mvc.Controllers
         {
             return View();
         }
+
         public async Task<IActionResult> LogOut()
         {
             await HttpContext.SignOutAsync(CookieAuthenticationDefaults.AuthenticationScheme);
             return RedirectToAction("Login", "Access");
         }
-
 
         public IActionResult GecmisGunler()
         {
@@ -116,7 +116,6 @@ namespace gunluk_mvc.Controllers
             return RedirectToAction("Login", "Access");
         }
 
-
         public IActionResult BugunuYaz()
         {
             return View();
@@ -152,8 +151,6 @@ namespace gunluk_mvc.Controllers
 
             return View();
         }
-
-
 
         [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]
         public IActionResult Error()

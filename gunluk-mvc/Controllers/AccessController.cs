@@ -18,6 +18,7 @@ namespace gunluk_mvc.Controllers
                 return RedirectToAction("Index", "Home");
             return View();
         }
+
         [HttpPost]
         public async Task<IActionResult> Login(VMLogin modelLogin)
         {
