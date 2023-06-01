@@ -46,7 +46,7 @@ namespace gunluk_mvc.Controllers
             connection.Open();
 
             //Tüm kullanıcıları getir
-            string query = "SELECT * FROM dbo.Iceriks";
+            string query = $"SELECT * FROM dbo.Iceriks Where UserId={Convert.ToInt32(HttpContext.User.Claims.FirstOrDefault().Value)}";
             SqlCommand command = new SqlCommand(query, connection);
             SqlDataReader reader = command.ExecuteReader();
 
@@ -75,7 +75,6 @@ namespace gunluk_mvc.Controllers
         {
             connection.Open();
 
-            //Tüm kullanıcıları getir
             string query = "SELECT * FROM dbo.Users WHERE KullaniciAdi='" + inputEmail + "'";
             SqlCommand command = new SqlCommand(query, connection);
             SqlDataReader reader = command.ExecuteReader();
@@ -114,7 +113,7 @@ namespace gunluk_mvc.Controllers
                 }
             }
 
-            return View();
+            return RedirectToAction("Login", "Access");
         }
 
 
@@ -122,6 +121,7 @@ namespace gunluk_mvc.Controllers
         {
             return View();
         }
+
         [HttpPost]
         public IActionResult BugunuYaz(int UserId, string inputbaslik, string inputicerik)
         {
@@ -133,7 +133,7 @@ namespace gunluk_mvc.Controllers
                 SqlCommand insert_command = new SqlCommand(insert_query, connection);
 
                 // Parametreler ekle
-                insert_command.Parameters.AddWithValue("@UserId", 1);
+                insert_command.Parameters.AddWithValue("@UserId", Convert.ToInt32(HttpContext.User.Claims.FirstOrDefault().Value));
                 insert_command.Parameters.AddWithValue("@Baslik", inputbaslik);
                 insert_command.Parameters.AddWithValue("@Gunlugum", inputicerik);
                 connection.Open();

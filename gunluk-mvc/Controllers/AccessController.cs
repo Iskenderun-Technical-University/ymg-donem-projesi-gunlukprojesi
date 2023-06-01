@@ -24,9 +24,9 @@ namespace gunluk_mvc.Controllers
 
             connection.Open();
 
-            //Tüm kullanıcıları getir
+            
             string query = "Select * from dbo.Users where KullaniciAdi='" + modelLogin.Email + "' and Sifre='" + modelLogin.Password + "' ;";
-            //string query = "SELECT * FROM dbo.Users WHERE KullaniciAdi='" + inputEmail + "'";
+           
             SqlCommand command = new SqlCommand(query, connection);
             SqlDataReader reader = command.ExecuteReader();
 
@@ -46,8 +46,9 @@ namespace gunluk_mvc.Controllers
             {
                 List<Claim> claims = new List<Claim>()
                 {
-                    new Claim(ClaimTypes.NameIdentifier,modelLogin.Email),
-                    new Claim("OtherProperties","Example Role")
+                    //new Claim(ClaimTypes.NameIdentifier,modelLogin.Email),
+                    new Claim(ClaimTypes.NameIdentifier,user.Id.ToString()),
+                    //new Claim("OtherProperties","Example Role")
                 };
                 ClaimsIdentity claimsidentity = new ClaimsIdentity(claims,
                     CookieAuthenticationDefaults.AuthenticationScheme);
